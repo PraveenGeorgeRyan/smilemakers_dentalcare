@@ -3,9 +3,44 @@ import Layout from "@/components/layout/Layout";
 import Link from "next/link";
 import { useRef, useState } from "react";
 import { FaPaperPlane } from "react-icons/fa";
-import toast from "react-hot-toast";
+// import toast from "react-hot-toast";
 
 export default function Page() {
+  // const [isLoading, setIsLoading] = useState(false); // Use state for loading
+  // const formRef = useRef(null); // Create a form ref
+
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault(); // Prevent default form submission
+
+  //   setIsLoading(true); // Set loading state before submission
+  //   const senderFirstName = event.target.elements.firstName.value;
+  //   const senderLastName = event.target.elements.lastName.value;
+  //   const senderEmail = event.target.elements.senderEmail.value;
+  //   const message = event.target.elements.message.value;
+
+  //   // Fetch
+  //   // to be updated after deployment
+  //   const res = await fetch("http://localhost:3000", {
+  //     method: "POST",
+  //     body: JSON.stringify({
+  //       senderFirstName,
+  //       senderLastName,
+  //       senderEmail,
+  //       message,
+  //     }), // Or use FormData object directly
+  //   });
+
+  //   const { data, error } = await res.json();
+  //   // ... handle response
+  //   if (error) {
+  //     toast.error(error);
+  //   } else {
+  //     toast.success("Email sent successfully!");
+  //     formRef.current?.reset(); // Reset the form using ref
+  //   }
+
+  //   setIsLoading(false); // Reset loading state after submission
+  // };
   const [isLoading, setIsLoading] = useState(false); // Use state for loading
   const formRef = useRef(null); // Create a form ref
 
@@ -13,33 +48,20 @@ export default function Page() {
     event.preventDefault(); // Prevent default form submission
 
     setIsLoading(true); // Set loading state before submission
+
+    // No need to fetch data here as the email won't be sent through your server
+    // Your existing code for handling form submission can be placed here
+
     const senderFirstName = event.target.elements.firstName.value;
     const senderLastName = event.target.elements.lastName.value;
     const senderEmail = event.target.elements.senderEmail.value;
     const message = event.target.elements.message.value;
 
-    // Fetch
-    // to be updated after deployment
-    const res = await fetch("http://localhost:3000", {
-      method: "POST",
-      body: JSON.stringify({
-        senderFirstName,
-        senderLastName,
-        senderEmail,
-        message,
-      }), // Or use FormData object directly
-    });
-
-    const { data, error } = await res.json();
-    // ... handle response
-    if (error) {
-      toast.error(error);
-    } else {
-      toast.success("Email sent successfully!");
-      formRef.current?.reset(); // Reset the form using ref
-    }
+    // Open user's email client with pre-filled details
+    window.location.href = `mailto:${senderEmail}?subject=Inquiry from ${senderFirstName} ${senderLastName}&body=${message}`;
 
     setIsLoading(false); // Reset loading state after submission
+    formRef.current?.reset(); // Reset the form using ref
   };
   return (
     <>
@@ -214,10 +236,26 @@ export default function Page() {
                             rows={6}
                           />
                           <div className="space10" />
-                          <button
+                          {/* <button
                             type="submit"
                             className="contact-button"
                             disabled={isLoading} // Disable button while loading
+                          >
+                            {isLoading ? (
+                              <div className="loading-spinner"></div>
+                            ) : (
+                              <>
+                                Submit
+                                <span className="button-icon-wrapper">
+                                  <FaPaperPlane className="button-icon" />
+                                </span>
+                              </>
+                            )}
+                          </button> */}
+                          <button
+                            type="submit"
+                            className="contact-button"
+                            disabled={isLoading}
                           >
                             {isLoading ? (
                               <div className="loading-spinner"></div>
