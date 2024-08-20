@@ -12,7 +12,7 @@ export default function MobileHeader({ isMobileMenu, handleMobileMenu }) {
 
   return (
     <>
-      <div className="mobile-header mobile-header-4 d-block d-lg-none">
+      <div className="mobile-header d-block d-lg-none">
         <div className="col-12">
           <div className="mobile-header-elements">
             <div className="mobile-logo">
